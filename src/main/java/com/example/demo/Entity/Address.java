@@ -17,13 +17,12 @@ public class Address {
     private Integer id;
 
     @Column(nullable = false)
-    private String street_name;
+    private String streetName;
 
     @Column(nullable = false)
-    private Integer home_number;
+    private Integer homeNumber;
 
     @ManyToOne
-    @JoinColumn(name = "district_id")
     private District district;
 
 

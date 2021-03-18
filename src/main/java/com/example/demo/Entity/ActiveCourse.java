@@ -18,13 +18,13 @@ public class ActiveCourse {
     private Integer id;
 
     @Column(nullable = false)
-    private Integer max_students;
+    private Integer maxStudents;
 
     @Column(nullable = false)
-    private Integer current_students;
+    private Integer currentStudents;
 
     @Column(nullable = false)
-    private Date datetime;
+    private Date date;
 
     @Column(nullable = false)
     private String description;

@@ -20,7 +20,6 @@ public class District {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "region_id")
     private Region region;
 
 }

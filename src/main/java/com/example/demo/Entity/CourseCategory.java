@@ -23,6 +23,6 @@ public class CourseCategory {
     private String description;
 
     @ManyToOne
-    private CourseCategory parent_id;
+    private CourseCategory parentId;
 
 }
