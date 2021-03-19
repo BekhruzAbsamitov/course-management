@@ -1,4 +1,4 @@
-package com.example.demo.Entity;
+package com.example.demo.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -6,11 +6,12 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Entity
-public class CompanyCategory {
+public class Course {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,5 +23,10 @@ public class CompanyCategory {
     @Column(nullable = false)
     private String description;
 
+    @ManyToOne
+    private Company company;
+
+    @ManyToOne
+    private  CourseCategory courseCategory;
 
 }

@@ -1,4 +1,4 @@
-package com.example.demo.Entity;
+package com.example.demo.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,24 +10,14 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Data
 @Entity
-public class Contact {
+public class Region {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(nullable = false)
-    private String phoneNumber;
-
-
-    @Column(nullable = false)
-    private String email;
-
-    @Column(nullable = false)
-    private String website;
-
-    @Column(nullable = false)
-    private String telegram;
+    private String name;
 
 
 

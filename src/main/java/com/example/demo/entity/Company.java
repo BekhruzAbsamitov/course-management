@@ -1,16 +1,17 @@
-package com.example.demo.Entity;
+package com.example.demo.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Entity
-public class District {
+public class Company {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,7 +20,16 @@ public class District {
     @Column(nullable = false)
     private String name;
 
-    @ManyToOne
-    private Region region;
+    @Column(nullable = false)
+    private String description;
+
+    @OneToOne
+    private Address address;
+
+    @OneToOne
+    private Contact contact;
+
+    @ManyToMany
+    private List<CompanyCategory> companyCategories;
 
 }

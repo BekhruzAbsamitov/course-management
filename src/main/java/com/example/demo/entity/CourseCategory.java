@@ -1,4 +1,4 @@
-package com.example.demo.Entity;
+package com.example.demo.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,20 +10,19 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Data
 @Entity
-public class Address {
+public class CourseCategory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(nullable = false)
-    private String streetName;
+    private String name;
 
     @Column(nullable = false)
-    private Integer homeNumber;
+    private String description;
 
     @ManyToOne
-    private District district;
-
+    private CourseCategory parentId;
 
 }
