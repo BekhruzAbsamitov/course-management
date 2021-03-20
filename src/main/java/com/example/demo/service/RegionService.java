@@ -47,7 +47,7 @@ public class RegionService {
 
         Optional<Region> optionalRegion = regionRepository.findById(id);
 
-        if (optionalRegion.isEmpty()) {
+        if (!optionalRegion.isPresent()) {
             return new Result("Region topilmadi", false);
         }
 

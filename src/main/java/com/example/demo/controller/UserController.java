@@ -19,6 +19,7 @@ public class UserController {
         this.userService = userService;
     }
 
+
     @PostMapping
     public Result addUser(@RequestBody UserDto userdto) {
         return userService.add(userdto);
@@ -34,5 +35,17 @@ public class UserController {
     @GetMapping("/{id}")
     public User getById(@PathVariable Integer id) {
         return userService.getById(id);
+    }
+
+
+    @DeleteMapping("/{id}")
+    public Result deleteById(@PathVariable Integer id) {
+        return userService.delete(id);
+    }
+
+
+    @PutMapping("/{id}")
+    public Result editById(@PathVariable Integer id, @RequestBody UserDto userDto) {
+        return userService.edit(id, userDto);
     }
 }

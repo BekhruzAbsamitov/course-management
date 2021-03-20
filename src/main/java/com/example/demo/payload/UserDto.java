@@ -12,7 +12,7 @@ public class UserDto {
     private String lastName;
     private Integer age;
     private String phoneNumber;
-    private String homeNumber;
+    private Integer homeNumber;
     private String streetName;
     private Integer districtId;
     private List<Role> roleList;

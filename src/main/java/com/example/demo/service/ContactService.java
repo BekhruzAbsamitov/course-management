@@ -54,7 +54,7 @@ public class ContactService {
 
         Optional<Contact> optionalContact = contactRepository.findById(id);
 
-        if (optionalContact.isEmpty()){
+        if (!optionalContact.isPresent()){
 
             return new Result("Contact not found",false);
 

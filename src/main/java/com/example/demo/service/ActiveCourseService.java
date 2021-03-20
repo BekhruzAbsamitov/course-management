@@ -26,7 +26,7 @@ public class ActiveCourseService {
 
     public String editActiveCourse(Integer id, ActiveCourseDto activeCourseDto) {
         final Optional<ActiveCourse> optionalActiveCourse = activeCourseRepository.findById(id);
-        if (optionalActiveCourse.isEmpty()) {
+        if (!optionalActiveCourse.isPresent()) {
             return "Active course not found";
         }
         final ActiveCourse activeCourse = optionalActiveCourse.get();
@@ -36,7 +36,7 @@ public class ActiveCourseService {
         activeCourse.setStatus(activeCourseDto.getStatus());
 
         final Optional<Course> optionalCourse = courseRepository.findById(activeCourseDto.getCourseId());
-        if (optionalCourse.isEmpty()) {
+        if (!optionalCourse.isPresent()) {
             return "Course not found";
         }
 
@@ -53,7 +53,7 @@ public class ActiveCourseService {
         activeCourse.setStatus(activeCourseDto.getStatus());
 
         final Optional<Course> optionalCourse = courseRepository.findById(activeCourseDto.getCourseId());
-        if (optionalCourse.isEmpty()) {
+        if (!optionalCourse.isPresent()) {
             return "Course not found";
         }
 
@@ -70,7 +70,7 @@ public class ActiveCourseService {
         final Optional<ActiveCourse> optionalActiveCourse =
                 activeCourseRepository.findById(id);
 
-        if (optionalActiveCourse.isEmpty()) {
+        if (!optionalActiveCourse.isPresent()) {
             return null;
         }
         return optionalActiveCourse.get();

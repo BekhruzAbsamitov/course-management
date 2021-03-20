@@ -24,7 +24,7 @@ public class CourseCategoryService {
 
     public String editCategory(Integer id, CourseCategoryDto categoryDto) {
         final Optional<CourseCategory> courseCategory = categoryRepository.findById(id);
-        if (courseCategory.isEmpty()) {
+        if (!courseCategory.isPresent()) {
             return "Category not found";
         }
         final CourseCategory category = courseCategory.get();
@@ -33,7 +33,7 @@ public class CourseCategoryService {
         if (categoryDto.getParentId() != null) {
             final Optional<CourseCategory>
                     courseCategoryOptional = categoryRepository.findById(categoryDto.getParentId());
-            if (courseCategoryOptional.isEmpty()) {
+            if (!courseCategoryOptional.isPresent()) {
                 return "Parent id not found";
             }
             category.setParentId(courseCategoryOptional.get());
@@ -53,7 +53,7 @@ public class CourseCategoryService {
         if (categoryDto.getParentId() != null) {
             final Optional<CourseCategory>
                     courseCategoryOptional = categoryRepository.findById(categoryDto.getParentId());
-            if (courseCategoryOptional.isEmpty()) {
+            if (!courseCategoryOptional.isPresent()) {
                 return "Parent id not found";
             }
             category.setParentId(courseCategoryOptional.get());
@@ -72,7 +72,7 @@ public class CourseCategoryService {
 
     public CourseCategory getCourseCategoryById(Integer id) {
         final Optional<CourseCategory> optionalCourseCategory = categoryRepository.findById(id);
-        if (optionalCourseCategory.isEmpty()) {
+        if (!optionalCourseCategory.isPresent()) {
             return null;
         }
         return optionalCourseCategory.get();

@@ -35,7 +35,7 @@ public class DistrictService {
 
         Optional<Region> optionalRegion = regionRepository.findById(districtDto.getRegion_id());
 
-        if (optionalRegion.isEmpty()) {
+        if (!optionalRegion.isPresent()) {
 
             return new Result("Region topilmadi", false);
         }
@@ -61,14 +61,14 @@ public class DistrictService {
     public Result editDistrict(Integer id, DistrictDto districtDto) {
 
         Optional<District> optionalDistrict = districtRepository.findById(id);
-        if (optionalDistrict.isEmpty()) {
+        if (!optionalDistrict.isPresent()) {
             return new Result("District topilmadi", false);
         }
 
         District district = optionalDistrict.get();
         district.setName(districtDto.getName());
         Optional<Region> optionalRegion = regionRepository.findById(districtDto.getRegion_id());
-        if (optionalRegion.isEmpty()) {
+        if (!optionalRegion.isPresent()) {
             return new Result("Region topilmadi", false);
         }
 

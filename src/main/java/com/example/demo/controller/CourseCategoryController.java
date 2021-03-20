@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/courseCategory")
 public class CourseCategoryController {
 
     CourseCategoryService courseCategoryService;

@@ -35,7 +35,7 @@ public class CourseService {
 
     public String editCourse(Integer id, CourseDto courseDto) {
         final Optional<Course> optionalCourse = courseRepository.findById(id);
-        if (optionalCourse.isEmpty()) {
+        if (!optionalCourse.isPresent()) {
             return "Course not found!";
         }
         final Course course = optionalCourse.get();
@@ -43,12 +43,12 @@ public class CourseService {
         course.setDescription(courseDto.getDescription());
 
         final Optional<Company> optionalCompany = companyRepository.findById(courseDto.getCompanyId());
-        if (optionalCompany.isEmpty()) {
+        if (!optionalCompany.isPresent()) {
             return "Company not found!";
         }
 
         final Optional<CourseCategory> optionalCourseCategory = categoryRepository.findById(courseDto.getCategoryId());
-        if (optionalCourseCategory.isEmpty()) {
+        if (!optionalCourseCategory.isPresent()) {
             return "Course category not found!";
         }
 
@@ -60,7 +60,7 @@ public class CourseService {
 
     public String addCourse(CourseDto courseDto) {
         final Optional<Company> optionalCompany = companyRepository.findById(courseDto.getCompanyId());
-        if (optionalCompany.isEmpty()) {
+        if (!optionalCompany.isPresent()) {
             return "Company not found!";
         }
 
@@ -72,7 +72,7 @@ public class CourseService {
         Course course = new Course();
 
         final Optional<CourseCategory> optionalCourseCategory = categoryRepository.findById(courseDto.getCategoryId());
-        if (optionalCourseCategory.isEmpty()) {
+        if (!optionalCourseCategory.isPresent()) {
             return "Course category not found!";
         }
 
@@ -91,10 +91,7 @@ public class CourseService {
 
     public Course getCourseById(Integer id) {
         final Optional<Course> optionalCourse = courseRepository.findById(id);
-        if (optionalCourse.isEmpty()) {
-            return null;
-        }
-        return optionalCourse.get();
+        return optionalCourse.orElse(null);
     }
 
 }

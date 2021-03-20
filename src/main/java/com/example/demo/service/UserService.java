@@ -8,6 +8,7 @@ import com.example.demo.payload.Result;
 import com.example.demo.payload.UserDto;
 import com.example.demo.repository.AddressRepository;
 import com.example.demo.repository.DistrictRepository;
+import com.example.demo.repository.RoleRepository;
 import com.example.demo.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -20,11 +21,13 @@ public class UserService {
     final UserRepository userRepository;
     final AddressRepository addressRepository;
     final DistrictRepository districtRepository;
+    final RoleRepository roleRepository;
 
-    public UserService(UserRepository userRepository, AddressRepository addressRepository, DistrictRepository districtRepository) {
+    public UserService(UserRepository userRepository, AddressRepository addressRepository, DistrictRepository districtRepository, RoleRepository roleRepository) {
         this.userRepository = userRepository;
         this.addressRepository = addressRepository;
         this.districtRepository = districtRepository;
+        this.roleRepository = roleRepository;
     }
 
     public Result add(UserDto userDto) {
@@ -38,8 +41,8 @@ public class UserService {
 
 
         Address address = new Address();
-        address.setHomeNumber(address.getHomeNumber());
-        address.setStreetName(address.getStreetName());
+        address.setHomeNumber(userDto.getHomeNumber());
+        address.setStreetName(userDto.getStreetName());
 
         Optional<District> optionalDistrict = districtRepository.findById(userDto.getDistrictId());
         if (optionalDistrict.isPresent()) {
@@ -62,9 +65,65 @@ public class UserService {
         return userRepository.findAll();
     }
 
+
     public User getById(Integer id) {
 
         Optional<User> optionalUserEntity = userRepository.findById(id);
         return optionalUserEntity.orElse(null);
+    }
+
+
+    public Result edit(Integer id, UserDto userDto) {
+
+        Optional<User> optionalUser = userRepository.findById(id);
+        if (optionalUser.isPresent()) {
+            User editing = optionalUser.get();
+            editing.setFirstName(userDto.getFirstName());
+            editing.setLastName(userDto.getLastName());
+            editing.setAge(userDto.getAge());
+            editing.setPhoneNumber(userDto.getPhoneNumber());
+            editing.setRoles(userDto.getRoleList());
+
+            Address address = editing.getAddress();
+            address.setHomeNumber(userDto.getHomeNumber());
+            address.setStreetName(userDto.getStreetName());
+
+            Optional<District> optionalDistrict = districtRepository.findById(userDto.getDistrictId());
+            if (optionalDistrict.isPresent()) {
+                District district = optionalDistrict.get();
+                address.setDistrict(district);
+                Address savedAddress = addressRepository.save(address);
+                editing.setAddress(savedAddress);
+                return new Result("User edited", true);
+
+            } else {
+                return new Result("Such district not found", false);
+            }
+        }
+        return new Result("Such user not found", false);
+
+    }
+
+
+    public Result delete(Integer id) {
+
+        Optional<User> optionalUser = userRepository.findById(id);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            Address address = user.getAddress();
+            Integer addressId = address.getId();
+            userRepository.delete(user);
+            boolean exists = addressRepository.existsById(addressId);
+            if (exists) {
+                addressRepository.delete(address);
+
+
+                return new Result("User deleted", true);
+            } else {
+                return new Result("Such address not found", false);
+            }
+        }
+        return new Result("Such user not found", false);
+
     }
 }

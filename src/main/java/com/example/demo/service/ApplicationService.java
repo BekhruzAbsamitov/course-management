@@ -25,7 +25,7 @@ public class ApplicationService {
 
 
 //        applicationRepository.existsByUserAndActiveCourse();
-return null;
+        return null;
     }
 
     public List<Application> getApplicationList() {
@@ -34,7 +34,7 @@ return null;
 
     public Application getApplicationById(Integer id) {
         final Optional<Application> repository = applicationRepository.findById(id);
-        if (repository.isEmpty()) {
+        if (!repository.isPresent()) {
             return null;
         }
         return repository.get();
